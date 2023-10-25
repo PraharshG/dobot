@@ -27,7 +27,7 @@ class Dobot:
     def __init__(
         self, port: Optional[str] = None, execution_delay: float = 1.5
     ) -> None:
-        self.port = '/dev/cu.usbserial-110'
+        self.port: str = port if port else get_coms_port()[0]
         self.sleep_delay: float = execution_delay
         self.gripper = Gripper(self)
         self.suction_cup = SuctionCup(self)
