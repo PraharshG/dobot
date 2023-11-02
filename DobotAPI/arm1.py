@@ -1,4 +1,5 @@
 from dobotapi.utils import get_coms_port
+from dobotapi.dobot import Dobot
 from dobotapi.effectors.suctioncup import SuctionCup
 import time
 from csv import DictReader
@@ -21,16 +22,16 @@ r1 = 10
 r2 = 47
 
 def main():
-    bot.move_to(home['x'],home['y'],home['z'])
-    bot.move_to(pickUp['x'],pickUp['y'],pickUp['z'])
-    bot.move_to(pickDown['x'],pickDown['y'],pickDown['z'])
+    bot.move_to(int(home['x']),int(home['y']),int(home['z']))
+    bot.move_to(int(pickUp['x']),int(pickUp['y']),int(pickUp['z']))
+    bot.move_to(int(pickDown['x']),int(pickDown['y']),int(pickDown['z']))
     cup.suck()
-    bot.move_to(pickUp['x'],pickUp['y'],pickUp['z'])
-    bot.move_to(placeUp['x'],placeUp['y'],placeUp['z'],r2)
-    bot.move_to(placeDown['x'],placeDown['y'],placeDown['z'])
+    bot.move_to(int(pickUp['x']),int(pickUp['y']),int(pickUp['z']))
+    bot.move_to(int(placeUp['x']),int(placeUp['y']),int(placeUp['z']),r2)
+    bot.move_to(int(placeDown['x']),int(placeDown['y']),int(placeDown['z']))
     cup.idle()
-    bot.move_to(placeUp['x'],placeUp['y'],placeUp['z'],r1)
-    bot.move_to(home['x'],home['y'],home['z'])
+    bot.move_to(int(placeUp['x']),int(placeUp['y']),int(placeUp['z']),r1)
+    bot.move_to(int(home['x']),int(home['y']),int(home['z']))
 
 while True:
         try:
