@@ -1,4 +1,4 @@
-import keyboard
+#import keyboard
 import time
 from dobotapi.dobot import Dobot
 from dobotapi.utils import get_coms_port
@@ -21,15 +21,15 @@ def pickPlace(bot):
     placeUp = list_of_dict[2]
     placeDown = list_of_dict[3]
 
-    bot.move_to(home['x'], home['y'], home['z'], r)
-    bot.move_to(pickDown['x'], pickDown['y'], pickDown['z'], r)
+    bot.move_to(int(home['x']), int(home['y']), int(home['z'], r))
+    bot.move_to(int(pickDown['x']), int(pickDown['y']), int(pickDown['z'], r))
     cup.suck()
-    bot.move_to(home['x'], home['y'], home['z'], r)
-    bot.move_to(placeUp['x'], placeUp['y'], placeUp['z'], r)
-    bot.move_to(placeDown['x'], placeDown['y'], placeDown['z'], r)
+    bot.move_to(int(home['x']), int(home['y']), int(home['z'], r))
+    bot.move_to(int(placeUp['x']), int(placeUp['y']), int(placeUp['z']), r)
+    bot.move_to(int(placeDown['x']), int(placeDown['y']), int(placeDown['z']), r)
     cup.idle()
-    bot.move_to(placeUp['x'], placeUp['y'], placeUp['z'], r)
-    bot.move_to(home['x'], home['y'], home['z'], r)
+    bot.move_to(int(placeUp['x']), int(placeUp['y']), int(placeUp['z']), r)
+    bot.move_to(int(home['x']), int(home['y']), int(home['z'], r))
 
 def main():
     print("Dobot connected")
