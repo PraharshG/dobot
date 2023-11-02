@@ -3,6 +3,7 @@ import time
 from dobotapi.dobot import Dobot
 from dobotapi.utils import get_coms_port
 from dobotapi.effectors.suctioncup import SuctionCup
+from csv import DictReader
 
 bot = Dobot()
 bot.connect()
@@ -11,11 +12,14 @@ cup = SuctionCup(bot = bot)
 def pickPlace(bot):
     print('picking and placing')
 
-    home = {'x': 285, 'y': 15, 'z': 80}
-    pickDown = {'x': 293, 'y': 45, 'z': 15}
-    placeUp = {'x': 65, 'y': 230, 'z': 70}
-    placeDown = {'x': 65, 'y': 230, 'z': -40}
+    with open("coordinates_for_arm_2.csv", 'r') as f:
+        dict_reader = DictReader(f)
+        list_of_dict = list(dict_reader) 
     r = -29.7
+    home = list_of_dict[0]
+    pickDown = list_of_dict[1]
+    placeUp = list_of_dict[2]
+    placeDown = list_of_dict[3]
 
     bot.move_to(home['x'], home['y'], home['z'], r)
     bot.move_to(pickDown['x'], pickDown['y'], pickDown['z'], r)
