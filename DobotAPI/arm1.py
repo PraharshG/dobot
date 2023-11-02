@@ -7,7 +7,7 @@ bot = Dobot()
 bot.connect()
 cup = SuctionCup(bot = bot)
 
-with open("coordinates_for_arm_2.csv", 'r') as f:
+with open("coordinates_for_arm_1.csv", 'r') as f:
         dict_reader = DictReader(f)
         list_of_dict = list(dict_reader)
 
