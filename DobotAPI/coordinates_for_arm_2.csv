@@ -1,0 +1,5 @@
+pos,x,y,z
+home,285,15,80
+pickDown,293,45,15
+placeUp,65,230,70
+placeDown,65,230,-40
