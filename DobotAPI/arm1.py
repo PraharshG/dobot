@@ -1,16 +1,22 @@
 from dobotapi.utils import get_coms_port
 from dobotapi.effectors.suctioncup import SuctionCup
 import time
+from csv import DictReader
 
 bot = Dobot()
 bot.connect()
 cup = SuctionCup(bot = bot)
 
-home = {'x': 215, 'y': 45, 'z': 135}
-pickUp = {'x' : 130, 'y' : 185, 'z' : 115}
-pickDown = {'x': 145, 'y': 175, 'z': -50}
-placeUp = {'x': 230, 'y': 145, 'z': 90}
-placeDown = {'x': 240, 'y': 150, 'z': 10}
+with open("coordinates_for_arm_2.csv", 'r') as f:
+        dict_reader = DictReader(f)
+        list_of_dict = list(dict_reader)
+
+home = list_of_dict[0]
+pickUp = list_of_dict[1]
+pickDown = list_of_dict[2]
+placeUp = list_of_dict[3]
+placeDown = list_of_dict[4]
+
 r1 = 10
 r2 = 47
 
