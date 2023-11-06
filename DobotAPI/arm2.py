@@ -9,9 +9,9 @@ import socket
 bot = Dobot()
 bot.connect()
 cup = SuctionCup(bot = bot)
-server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_socket.bind(('localhost', 8888))
-server_socket.listen(1)
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_address = ('localhost', 8888)
+client_socket.connect(server_address)
 
 def pickPlace(bot):
     print('picking and placing')
@@ -60,7 +60,7 @@ def main():
         print(number)
         client_socket.send(number.encode())
         value = client_socket.recv(1024).decode()
-        if value == 1:
+        if value == '1':
             doThat()
             client_socket.close()
         
