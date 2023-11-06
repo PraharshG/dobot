@@ -16,5 +16,5 @@ while True:
 
     if index != 0:
         x = 1
-        client_socket.send(x.encode())
+        client_socket.send(str(x).encode())
         client_socket.close()
