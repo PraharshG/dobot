@@ -1,13 +1,17 @@
-#import keyboard
+import keyboard
 import time
 from dobotapi.dobot import Dobot
 from dobotapi.utils import get_coms_port
 from dobotapi.effectors.suctioncup import SuctionCup
 from csv import DictReader
+import socket
 
 bot = Dobot()
 bot.connect()
 cup = SuctionCup(bot = bot)
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_socket.bind(('localhost', 8888))
+server_socket.listen(1)
 
 def pickPlace(bot):
     print('picking and placing')
@@ -16,20 +20,25 @@ def pickPlace(bot):
         dict_reader = DictReader(f)
         list_of_dict = list(dict_reader) 
     r = -29.7
+    print(list_of_dict)
     home = list_of_dict[0]
     pickDown = list_of_dict[1]
     placeUp = list_of_dict[2]
     placeDown = list_of_dict[3]
 
-    bot.move_to(int(home['x']), int(home['y']), int(home['z'], r))
-    bot.move_to(int(pickDown['x']), int(pickDown['y']), int(pickDown['z'], r))
+    bot.move_to(int(home['x']), int(home['y']), int(home['z']), r)
+    bot.move_to(int(pickDown['x']), int(pickDown['y']), int(pickDown['z']), r)
     cup.suck()
-    bot.move_to(int(home['x']), int(home['y']), int(home['z'], r))
+    bot.move_to(int(home['x']), int(home['y']), int(home['z']), r)
     bot.move_to(int(placeUp['x']), int(placeUp['y']), int(placeUp['z']), r)
     bot.move_to(int(placeDown['x']), int(placeDown['y']), int(placeDown['z']), r)
     cup.idle()
     bot.move_to(int(placeUp['x']), int(placeUp['y']), int(placeUp['z']), r)
-    bot.move_to(int(home['x']), int(home['y']), int(home['z'], r))
+    bot.move_to(int(home['x']), int(home['y']), int(home['z']), r)
+
+def doThat():
+    bot.conveyor_belt.move(0)
+    pickPlace(bot)
 
 def main():
     print("Dobot connected")
@@ -44,14 +53,17 @@ def main():
                 lis.append(int(num))
             
             if event.name == 'enter' and event.event_type == 'down':
-                #print(lis[1:-1])
-                bot.conveyor_belt.move(0)
-                pickPlace(bot)
                 break
 
 
         number = ''.join(str(digit) for digit in lis[1:-1])
         print(number)
+        client_socket.send(number.encode())
+        value = client_socket.recv(1024).decode()
+        if value == 1:
+            doThat()
+            client_socket.close()
+        
 
 def forpnp(bot):
     while True:
