@@ -37,15 +37,61 @@ This file implements a basic server that listens for incoming client requests ov
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/dobot-arm-automation.git
-   cd dobot-arm-automation
+   git clone https://github.com/Stax124/DobotAPI.git
    ```
-2. Install the required dependencies:
+1. Install the required dependencies:
 
   ```bash
-  Copy code
   pip install dobot-api keyboard
   ```
 
 3. Ensure the Dobot arm is connected and the necessary drivers are installed on your system. Refer to the Dobot API documentation for more details.
+
+## Usage
+
+1. Setting Up Coordinates:
+Run `coord_init.py` to manually record the arm's coordinates at different positions. This will create or update the `coordinates_for_arm_1.csv` and `coordinates_for_arm_2.csv` files with the current arm positions. You'll need to move the arm to specific points like:
+
+Home position
+Pick up position
+Pick down position
+Place up position
+Place down position
+
+2. Running the Dobot Arms:
+Once the coordinates are set up, you can run the automation scripts (`arm1.py` and `arm2`.py) to begin the pick-and-place operations. These scripts will use the coordinates from the CSV files and the suction cup effector to automate the task.
+
+Arm 1: Execute `arm1.py` to perform movements based on the coordinates in `coordinates_for_arm_1.csv`.
+Arm 2: Execute `arm2.py` to control the second arm based on `coordinates_for_arm_2.csv`.
+
+3. Starting the Server:
+The server listens for input from the client and sends commands to the arms accordingly. To run the server:
+
+bash
+Copy code
+python server.py
+This will start the server and allow communication between the client and the arms. The server waits for the client to send a request (e.g., an index), and the arms will execute corresponding actions like moving to specific positions.
+
+4. Monitoring Pose:
+To monitor the pose of the robotic arm in real-time, you can run:
+
+```bash
+python pose.py
+```
+This will continuously display the arm's x, y, and z position in the terminal.
+
+Example Interaction
+Start the server on the machine connected to the Dobot:
+
+```bash
+python server.py
+```
+Run arm1.py on one machine and arm2.py on another (if using two separate systems).
+
+Send an index number from a client to trigger specific actions. For example, sending 1 will start the pick-and-place sequence on the Dobot arm.
+
+The arms will perform the task, with the suction cup effector picking up and placing objects at predefined coordinates.
+
+Contributing
+Feel free to fork the repository, make changes, and submit pull requests. We encourage contributions to improve the functionality of the Dobot automation system.
 
