@@ -92,6 +92,6 @@ Send an index number from a client to trigger specific actions. For example, sen
 
 The arms will perform the task, with the suction cup effector picking up and placing objects at predefined coordinates.
 
-Contributing
+## Contributing
 Feel free to fork the repository, make changes, and submit pull requests. We encourage contributions to improve the functionality of the Dobot automation system.
 
